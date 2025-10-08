@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Kape Kapi Export - Sustainable Coffee</title>
+<style>
+  * { box-sizing: border-box; }
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    scroll-behavior: smooth;
+    background: #e7ecd8;
+    color: #3e3a31;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 40px;
+    z-index: 100;
+  }
+  nav a {
+    color: #4a4a23;
+    text-decoration: none;
+    margin-left: 28px;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #7a9668;
+  }
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  .burger div {
+    background-color: #4a4a23;
+    height: 3px;
+    border-radius: 2px;
+    transition: all 0.4s ease;
+  }
+  .burger.open div:nth-child(1) { transform: rotate(45deg) translate(4px, 5px);}
+  .burger.open div:nth-child(2) { opacity: 0; }
+  .burger.open div:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px);}
+  .menu-drawer {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    background: #f0f4d1;
+    box-shadow: -3px 0 12px rgba(74,74,35,0.25);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 30px;
+    font-weight: 600;
+    transition: right 0.4s ease;
+    z-index: 101;
+  }
+  .menu-drawer.open { right: 0; }
+  .menu-drawer a {
+    margin: 20px 0;
+    color: #475128;
+    text-decoration: none;
+    font-size: 1.15rem;
+  }
+  .menu-drawer a:hover { color: #566740; }
+  .hero { position: relative; height: 100vh; overflow: hidden; }
+  .hero-slider {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-slider img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fadeSlide 26.64s infinite;
+  }
+  .hero-slider img:nth-child(1) { animation-delay: 0s; }
+  .hero-slider img:nth-child(2) { animation-delay: 6.66s; }
+  .hero-slider img:nth-child(3) { animation-delay: 13.33s; }
+  .hero-slider img:nth-child(4) { animation-delay: 20s; }
+  @keyframes fadeSlide {
+    0% { opacity: 0; }
+    5% { opacity: 1; }
+    25% { opacity: 1; }
+    30% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(46, 38, 13, 0.65);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative; z-index: 2; opacity: 0;
+    transform: translateY(30px);
+    animation: fadeSlideIn 1s forwards 0.6s;
+    text-align: center; color: #fff;
+    max-width: 600px; margin: 0 auto;
+  }
+  .hero-logo {
+    width: 160px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    background: rgba(255 255 255 / 0.15);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  .hero-title {
+    font-size: 3.5rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 10px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  .hero-subtitle {
+    font-size: 1.4rem; font-weight: 400; max-width: 600px; margin: 0 auto;
+    font-style: italic;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+
+  /* Features/Values Section */
+  .features-section {
+    background: #f9f8f3;
+    max-width: 960px;
+    margin: -120px auto 60px auto;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(74,74,35,0.17);
+    border: 1px solid #d3cd99;
+    padding: 44px 18px 36px 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .features-section h2 {
+    color: #8b5e2b; text-align: center; font-weight: 800; font-size: 2.2rem;
+    margin-bottom: 35px;
+    font-family: 'Georgia', serif;
+  }
+  .features-row {
+    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 36px; text-align: center;
+  }
+  .feature-card {
+    flex: 1 1 260px;
+    background: #d8c3a5;
+    border-radius: 13px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgb(170 136 81 / 0.22);
+    min-width: 250px; max-width: 320px;
+    display: flex; flex-direction: column;
+  }
+  .feature-iconbox {
+    display: flex; align-items: center; justify-content: center;
+    background: #b69657; padding: 26px;
+  }
+  .feature-iconbox img {
+    width: 36px; height: 36px;
+    filter: brightness(0) invert(1);
+  }
+  .feature-img {
+    width: 100%; height: 170px; object-fit: cover;
+    border-bottom: 1px solid #c1ac81;
+  }
+  .feature-title {
+    font-weight: 700; color: #8b5e2b; font-size: 1.15rem; padding: 17px 12px 15px 12px;
+    margin: 0;
+  }
+
+  section {
+    max-width: 960px;
+    margin: 0 auto 40px auto;
+    padding: 40px 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(74,74,35,0.15);
+    border: 1px solid #a5af6e;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  section.visible { opacity: 1; transform: translateY(0);}
+  #about { background: #f6f9d6; border-color: #aabd6e; }
+  #products { background: #e4eac3; border-color: #a2aa62; }
+  #contact { background: #ced5a8; border-color: #8b9044; }
+  h2 {
+    font-family: 'Georgia', serif;
+    color: #506426;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 28px;
+    border-bottom: 3px solid #a9b487;
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-weight: 700;
+    color: #6a6e31;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+  p {
+    font-size: 1.1rem;
+    color: #555e2e;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  ul {
+    list-style-type: square;
+    margin-left: 24px;
+    margin-bottom: 30px;
+    color: #565f2f;
+  }
+  ul li { margin-bottom: 10px;}
+  footer {
+    text-align: center;
+    padding: 30px 15px;
+    font-style: italic;
+    font-weight: 600;
+    color: #5c652c;
+    background: #c0c76a;
+    box-shadow: inset 0 1px 6px rgba(116,109,69,0.3);
+  }
+  @keyframes fadeSlideIn {
+    to { opacity: 1; transform: translateY(0);}
+  }
+  @media (max-width: 1050px) {
+    .features-row { flex-direction: column; align-items: center;}
+    .feature-card { min-width: 230px; max-width: 480px;}
+  }
+  @media (max-width: 900px) {
+    nav { justify-content: flex-start; padding: 15px 25px;}
+    nav a { display: none;}
+    .burger { display: flex; }
+    section { margin: 10px 15px 50px 15px; padding: 30px 20px; }
+    .features-section { margin: -80px 10px 50px 10px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+<div class="burger" id="burger">
+<div></div>
+<div></div>
+<div></div>
+</div>
+<a href="#about">About</a>
+<a href="#products">Products</a>
+<a href="#contact">Contact</a>
+</nav>
+<div class="menu-drawer" id="menuDrawer">
+<a href="#about" onclick="toggleMenu()">About</a>
+<a href="#products" onclick="toggleMenu()">Products</a>
+<a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+<div class="hero">
+<div class="hero-slider">
+<img alt="Coffee Beans" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
+<img alt="Coffee Preparation" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+<img alt="Coffee Cups" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+<img alt="Coffee Beans" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
+</div>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<img alt="Kape Kapi Export Logo" class="hero-logo" src="https://user-gen-media-assets.s3.amazonaws.com/gemini_images/f6d09b60-023d-43f4-bfeb-812775f8443b.png" style=" margin-top: 60px;"/>
+<h1 class="hero-title">KAPE KAPI &amp; EXPORTS</h1>
+<p class="hero-subtitle">Sustainable, Ethical, and Traceable Coffee from Farm to Cup</p>
+</div>
+</div>
+<!-- Features Section -->
+<div class="features-section" style="margin-top: 40px;">
+<h2>We know how to make the best coffee in the city.</h2>
+<div class="features-row">
+<div class="feature-card">
+<div class="feature-iconbox">
+<img alt="Experience Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png"/>
+</div>
+<img alt="Coffee Beans" class="feature-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+<div class="feature-title">15 years of experience</div>
+</div>
+<div class="feature-card">
+<div class="feature-iconbox">
+<img alt="Coffee Bean Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png"/>
+</div>
+<img alt="Pure Coffee Beans" class="feature-img" src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+<div class="feature-title">Pure coffee beans</div>
+</div>
+<div class="feature-card">
+<div class="feature-iconbox">
+<img alt="Love Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055613.png"/>
+</div>
+<img alt="Nurtured Coffee" class="feature-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+<div class="feature-title">Nurtured with love</div>
+</div>
+</div>
+</div>
+<section id="about" style="background: #d9c8a1; padding: 40px 35px; border-radius: 15px; box-shadow: 0 8px 16px rgba(74,74,35,0.15); border: 1px solid #a38f5e; color: #3e3a31; font-family: Georgia, serif;">
+<h2>About Us</h2>
+<p>Kape Kapi &amp; Exports is a new but experienced player in the coffee export market, built on 15 years of industry expertise. Operating out of Kushalnagar, Karnataka, we maintain a state-of-the-art coffee curing facility and source raw coffee directly from farmers, avoiding middlemen entirely.</p>
+<p>We support certification processes like Organic, Rainforest Alliance, 4C, and Fairtrade to ensure ethical farming practices and product integrity. With 5000 Mt of certified cleaned coffee and comprehensive traceability from farm to cup, we proudly supply leading multinational companies including Nestle, ITC, Olam, NKG, Ecom, LDC, and Allana Sons.</p>
+<p>Our reach extends across Europe, the Middle East, and Africa with year-round supply capabilities.</p>
+</section>
+<section id="products" style="background: #d9c8a1; padding: 40px 35px; border-radius: 15px; box-shadow: 0 8px 16px rgba(74,74,35,0.15); border: 1px solid #a38f5e; color: #3e3a31; font-family: Georgia, serif;">
+<h2>Our Products</h2>
+<h3>Robusta Coffee – Naturals</h3>
+<ul>
+<li>Robusta Coffee Cherry AAA</li>
+<li>Robusta Coffee Cherry AA</li>
+<li>Robusta Coffee Cherry A</li>
+<li>Robusta Coffee Cherry AB</li>
+<li>Robusta Coffee Cherry PB</li>
+<li>Robusta Coffee Cherry C</li>
+</ul>
+<h3>Robusta Coffee – Washed</h3>
+<ul>
+<li>Robusta Parchment AA</li>
+<li>Robusta Parchment A</li>
+<li>Robusta Parchment AB</li>
+<li>Robusta Parchment PB</li>
+<li>Robusta Parchment C</li>
+</ul>
+<h3>Arabica Coffee – Naturals</h3>
+<ul>
+<li>Arabica Coffee Cherry AAA</li>
+<li>Arabica Coffee Cherry AA</li>
+<li>Arabica Coffee Cherry A</li>
+<li>Arabica Coffee Cherry AB</li>
+<li>Arabica Coffee Cherry PB</li>
+<li>Arabica Coffee Cherry C</li>
+</ul>
+<h3>Arabica Coffee – Washed (Plantation Coffee)</h3>
+<ul>
+<li>Plantation AA</li>
+<li>Plantation A</li>
+<li>Plantation AB</li>
+</ul>
+<h3>Specialty Coffees</h3>
+<ul>
+<li>Kapi Royale</li>
+<li>Monsoon Malabar Coffee</li>
+</ul>
+</section>
+<section id="contact">
+<h2>Contact Us</h2>
+<p>For inquiries, orders, and partnership opportunities, please reach out to us at:</p>
+<p><strong>Email:</strong> info@kapekapiexports.com</p>
+<p><strong>Phone:</strong> +91 12345 67890</p>
+<p><strong>Address:</strong> Kushalnagar, Karnataka, India</p>
+</section>
+<footer>
+  © 2025 Kape Kapi &amp; Exports. Committed to sustainability, quality, and ethical coffee farming.
+</footer>
+<script>
+  // Menu toggle code
+  const burger = document.getElementById('burger');
+  const menuDrawer = document.getElementById('menuDrawer');
+  function toggleMenu() {
+    burger.classList.toggle('open');
+    menuDrawer.classList.toggle('open');
+  }
+  burger.addEventListener('click', toggleMenu);
+  // Scroll animation for sections
+  const sections = document.querySelectorAll('section');
+  const observerOptions = { threshold: 0.2 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  sections.forEach(section => { observer.observe(section); });
+</script>
+</body>
+</html>
