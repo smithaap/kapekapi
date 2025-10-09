@@ -135,9 +135,9 @@
     font-size: 1.4rem; font-weight: 400; max-width: 600px; margin: 0 auto;
     font-style: italic;
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    color: white;  /* Add this line */
   }
 
-  /* Features/Values Section */
   .features-section {
     background: #f9f8f3;
     max-width: 960px;
@@ -195,9 +195,98 @@
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
   section.visible { opacity: 1; transform: translateY(0);}
-  #about { background: #f6f9d6; border-color: #aabd6e; }
-  #products { background: #e4eac3; border-color: #a2aa62; }
-  #contact { background: #ced5a8; border-color: #8b9044; }
+  
+  #about { 
+    background: linear-gradient(135deg, #2a1810 0%, #3e2723 50%, #1a0f0f 100%);
+    border: 1px solid rgba(139, 69, 19, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(212,165,116,0.05)"/></svg>') repeat;
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+  
+  #about h2 {
+    color: #d4a574;
+    border-bottom: 3px solid rgba(212, 165, 116, 0.5);
+    text-align: center;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
+  }
+  
+  #about p {
+    color: #e0d5c7;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  #products {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 35px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(74, 74, 35, 0.15);
+  border: 1px solid rgba(165, 175, 110, 0.4);
+  background: linear-gradient(135deg, #0a0a0a 0, #1a0f0f 50%, #2a1810 100%);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px; /* Adjust value as needed */
+}
+
+  
+  #contact { 
+    background: linear-gradient(135deg, #1a0f0f 0%, #2a1810 50%, #3e2723 100%);
+    border: 1px solid rgba(139, 69, 19, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(212,165,116,0.05)"/></svg>') repeat;
+    background-size: 30px 30px;
+    pointer-events: none;
+  }
+  
+  #contact h2 {
+    color: #d4a574;
+    border-bottom: 3px solid rgba(212, 165, 116, 0.5);
+    text-align: center;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
+  }
+  
+  #contact p {
+    color: #e0d5c7;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
+  #contact strong {
+    color: #d4a574;
+    font-weight: 700;
+  }
+  
   h2 {
     font-family: 'Georgia', serif;
     color: #506426;
@@ -235,12 +324,186 @@
     background: #c0c76a;
     box-shadow: inset 0 1px 6px rgba(116,109,69,0.3);
   }
+  
+  /* Products Section Styles */
+  #products h2 {
+    text-align: center;
+    font-size: 3.5em;
+    margin-bottom: 60px;
+    background: linear-gradient(45deg, #d4a574, #fff, #d4a574);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: none;
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+  }
+
+  .products-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .products-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .product-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(212, 165, 116, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212, 165, 116, 0.6);
+    box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
+  }
+
+  .product-card:hover::before {
+    left: 100%;
+  }
+
+  .card-header {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #d4a574;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bean-icon {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #3e2723 0%, #5d4037 30%, #6d4c41 50%, #5d4037 70%, #3e2723 100%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(93, 64, 55, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+  }
+
+  .bean-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 70%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  .product-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .product-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+    font-size: 1.05em;
+    color: #e0e0e0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .product-list li:last-child {
+    border-bottom: none;
+  }
+
+  .product-list li::before {
+    content: '◆';
+    color: #d4a574;
+    margin-right: 12px;
+    font-size: 0.7em;
+    transition: all 0.3s;
+  }
+
+  .product-list li:hover {
+    color: #fff;
+    padding-left: 10px;
+  }
+
+  .product-list li:hover::before {
+    transform: rotate(45deg);
+    color: #fff;
+  }
+
+  .specialty-section {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+    border: 2px solid rgba(212, 165, 116, 0.3);
+  }
+
+  .specialty-section .card-header {
+    font-size: 1.8em;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+  .specialty-section .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .specialty-section .product-list li {
+    background: rgba(212, 165, 116, 0.1);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    justify-content: center;
+    font-size: 1.15em;
+    font-weight: 500;
+  }
+
   @keyframes fadeSlideIn {
     to { opacity: 1; transform: translateY(0);}
   }
   @media (max-width: 1050px) {
     .features-row { flex-direction: column; align-items: center;}
     .feature-card { min-width: 230px; max-width: 480px;}
+    .products-layout {
+      grid-template-columns: 1fr;
+    }
   }
   @media (max-width: 900px) {
     nav { justify-content: flex-start; padding: 15px 25px;}
@@ -248,6 +511,12 @@
     .burger { display: flex; }
     section { margin: 10px 15px 50px 15px; padding: 30px 20px; }
     .features-section { margin: -80px 10px 50px 10px; }
+    #products { padding: 40px 20px; }
+    #products h2 { font-size: 2.5em; }
+    #about h2, #contact h2 { font-size: 2rem; }
+    .specialty-section .product-list {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
@@ -269,10 +538,10 @@
 </div>
 <div class="hero">
 <div class="hero-slider">
-<img alt="Coffee Beans" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
-<img alt="Coffee Preparation" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
-<img alt="Coffee Cups" src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
-<img alt="Coffee Beans" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
+<img alt="Coffee Beans" src="https://img.jagranjosh.com/images/2025/09/30/article/image/largest-coffee-exporter-1759228089194.webp?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
+<img alt="Coffee Preparation" src="https://blog.saidagustoespresso.com/wp-content/uploads/2023/09/il-miglior-caffe-al-mondo.jpg?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+<img alt="Coffee Cups" src="https://dropinblog.net/cdn-cgi/image/fit=scale-down,width=700/34248816/files/featured/42524527_2CBD0569-028A-4DA8-BDB1-78D7765BE34B.png?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
+<img alt="Coffee Beans" src="https://www.mochasandjavas.com/wp-content/uploads/2023/07/Understanding-the-Different-Types-of-Coffee-Beans.jpg?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
 </div>
 <div class="hero-overlay"></div>
 <div class="hero-content">
@@ -281,9 +550,9 @@
 <p class="hero-subtitle">Sustainable, Ethical, and Traceable Coffee from Farm to Cup</p>
 </div>
 </div>
-<!-- Features Section -->
+
 <div class="features-section" style="margin-top: 40px;">
-<h2>We know how to make the best coffee in the city.</h2>
+<h2>Crafted from roast to aroma – delivering the world's finest coffee in every bean</h2>
 <div class="features-row">
 <div class="feature-card">
 <div class="feature-iconbox">
@@ -296,64 +565,103 @@
 <div class="feature-iconbox">
 <img alt="Coffee Bean Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png"/>
 </div>
-<img alt="Pure Coffee Beans" class="feature-img" src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+<img alt="Pure Coffee Beans" class="feature-img" src="https://www.adamsandrussell.co.uk/wp-content/uploads/2020/10/Ground-Coffee-Beans-1.jpg?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
 <div class="feature-title">Pure coffee beans</div>
 </div>
 <div class="feature-card">
 <div class="feature-iconbox">
 <img alt="Love Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055613.png"/>
 </div>
-<img alt="Nurtured Coffee" class="feature-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+<img alt="Nurtured Coffee" class="feature-img" src="https://i.pinimg.com/736x/29/0a/2a/290a2af0fb9ffaa3e44819bb6610bfda.jpg?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
 <div class="feature-title">Nurtured with love</div>
 </div>
 </div>
 </div>
-<section id="about" style="background: #d9c8a1; padding: 40px 35px; border-radius: 15px; box-shadow: 0 8px 16px rgba(74,74,35,0.15); border: 1px solid #a38f5e; color: #3e3a31; font-family: Georgia, serif;">
+
+<section id="about">
 <h2>About Us</h2>
 <p>Kape Kapi &amp; Exports is a new but experienced player in the coffee export market, built on 15 years of industry expertise. Operating out of Kushalnagar, Karnataka, we maintain a state-of-the-art coffee curing facility and source raw coffee directly from farmers, avoiding middlemen entirely.</p>
 <p>We support certification processes like Organic, Rainforest Alliance, 4C, and Fairtrade to ensure ethical farming practices and product integrity. With 5000 Mt of certified cleaned coffee and comprehensive traceability from farm to cup, we proudly supply leading multinational companies including Nestle, ITC, Olam, NKG, Ecom, LDC, and Allana Sons.</p>
 <p>Our reach extends across Europe, the Middle East, and Africa with year-round supply capabilities.</p>
 </section>
-<section id="products" style="background: #d9c8a1; padding: 40px 35px; border-radius: 15px; box-shadow: 0 8px 16px rgba(74,74,35,0.15); border: 1px solid #a38f5e; color: #3e3a31; font-family: Georgia, serif;">
-<h2>Our Products</h2>
-<h3>Robusta Coffee – Naturals</h3>
-<ul>
-<li>Robusta Coffee Cherry AAA</li>
-<li>Robusta Coffee Cherry AA</li>
-<li>Robusta Coffee Cherry A</li>
-<li>Robusta Coffee Cherry AB</li>
-<li>Robusta Coffee Cherry PB</li>
-<li>Robusta Coffee Cherry C</li>
-</ul>
-<h3>Robusta Coffee – Washed</h3>
-<ul>
-<li>Robusta Parchment AA</li>
-<li>Robusta Parchment A</li>
-<li>Robusta Parchment AB</li>
-<li>Robusta Parchment PB</li>
-<li>Robusta Parchment C</li>
-</ul>
-<h3>Arabica Coffee – Naturals</h3>
-<ul>
-<li>Arabica Coffee Cherry AAA</li>
-<li>Arabica Coffee Cherry AA</li>
-<li>Arabica Coffee Cherry A</li>
-<li>Arabica Coffee Cherry AB</li>
-<li>Arabica Coffee Cherry PB</li>
-<li>Arabica Coffee Cherry C</li>
-</ul>
-<h3>Arabica Coffee – Washed (Plantation Coffee)</h3>
-<ul>
-<li>Plantation AA</li>
-<li>Plantation A</li>
-<li>Plantation AB</li>
-</ul>
-<h3>Specialty Coffees</h3>
-<ul>
-<li>Kapi Royale</li>
-<li>Monsoon Malabar Coffee</li>
-</ul>
+
+<section id="products">
+  <h2>OUR PRODUCTS</h2>
+  
+  <div class="products-layout">
+    <div class="products-column">
+      <div class="product-card">
+        <div class="card-header">
+          <div class="bean-icon"></div>
+          Robusta Coffee – Naturals
+        </div>
+        <ul class="product-list">
+          <li>Robusta Coffee Cherry AAA</li>
+          <li>Robusta Coffee Cherry AA</li>
+          <li>Robusta Coffee Cherry A</li>
+          <li>Robusta Coffee Cherry AB</li>
+          <li>Robusta Coffee Cherry PB</li>
+          <li>Robusta Coffee Cherry C</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="card-header">
+          <div class="bean-icon"></div>
+          Robusta Coffee – Washed
+        </div>
+        <ul class="product-list">
+          <li>Robusta Parchment AA</li>
+          <li>Robusta Parchment A</li>
+          <li>Robusta Parchment AB</li>
+          <li>Robusta Parchment PB</li>
+          <li>Robusta Parchment C</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="products-column">
+      <div class="product-card">
+        <div class="card-header">
+          <div class="bean-icon"></div>
+          Arabica Coffee – Naturals
+        </div>
+        <ul class="product-list">
+          <li>Arabica Coffee Cherry AAA</li>
+          <li>Arabica Coffee Cherry AA</li>
+          <li>Arabica Coffee Cherry A</li>
+          <li>Arabica Coffee Cherry AB</li>
+          <li>Arabica Coffee Cherry PB</li>
+          <li>Arabica Coffee Cherry C</li>
+        </ul>
+      </div>
+
+      <div class="product-card">
+        <div class="card-header">
+          <div class="bean-icon"></div>
+          Arabica Coffee – Washed
+        </div>
+        <ul class="product-list">
+          <li>Plantation AA</li>
+          <li>Plantation A</li>
+          <li>Plantation AB</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="product-card specialty-section">
+      <div class="card-header">
+        <div class="bean-icon"></div>
+        Specialty Coffees
+      </div>
+      <ul class="product-list">
+        <li>Kapi Royale</li>
+        <li>Monsoon Malabar Coffee</li>
+      </ul>
+    </div>
+  </div>
 </section>
+
 <section id="contact">
 <h2>Contact Us</h2>
 <p>For inquiries, orders, and partnership opportunities, please reach out to us at:</p>
@@ -361,11 +669,12 @@
 <p><strong>Phone:</strong> +91 12345 67890</p>
 <p><strong>Address:</strong> Kushalnagar, Karnataka, India</p>
 </section>
+
 <footer>
   © 2025 Kape Kapi &amp; Exports. Committed to sustainability, quality, and ethical coffee farming.
 </footer>
+
 <script>
-  // Menu toggle code
   const burger = document.getElementById('burger');
   const menuDrawer = document.getElementById('menuDrawer');
   function toggleMenu() {
@@ -373,7 +682,7 @@
     menuDrawer.classList.toggle('open');
   }
   burger.addEventListener('click', toggleMenu);
-  // Scroll animation for sections
+  
   const sections = document.querySelectorAll('section');
   const observerOptions = { threshold: 0.2 };
   const observer = new IntersectionObserver((entries) => {
