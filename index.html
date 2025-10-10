@@ -1,593 +1,331 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Kape Kapi Export - Sustainable Coffee</title>
 <style>
-  * { box-sizing: border-box; }
-  body, html {
+  :root{
+    --bg-dark: #0b0706;
+    --panel: rgba(255,255,255,0.03);
+    --brown-1: #3b241f;
+    --brown-2: #6b4238;
+    --gold: #d6a66a;
+    --cream: #efe6d2;
+    --accent: rgba(214,165,116,0.12);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body,html {
     margin: 0;
     padding: 0;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     scroll-behavior: smooth;
-    background: #e7ecd8;
-    color: #3e3a31;
+    background: radial-gradient(circle at 10% 10%, rgba(214,165,116,0.02), transparent 10%), linear-gradient(180deg,var(--bg-dark), #2b1a15);
+    color: var(--cream);
     overflow-x: hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
   }
   nav {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255,255,255,0.95);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+    border-bottom: 1px solid rgba(214,165,116,0.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     font-weight: 600;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
-    padding: 16px 40px;
-    z-index: 100;
+    padding: 12px 32px;
+    z-index: 200;
+    backdrop-filter: blur(6px);
   }
   nav a {
-    color: #4a4a23;
+    color: var(--gold);
     text-decoration: none;
     margin-left: 28px;
-    transition: color 0.3s ease;
+    transition: color 0.28s ease, transform 0.28s ease;
+    font-weight:700;
+    letter-spacing:0.02em;
   }
   nav a:hover {
-    color: #7a9668;
+    color: #fff;
+    transform: translateY(-3px);
   }
   .burger {
     display: none;
     flex-direction: column;
     justify-content: space-between;
-    width: 24px;
+    width: 26px;
     height: 18px;
     cursor: pointer;
     margin-left: auto;
+    margin-right: 12px;
   }
   .burger div {
-    background-color: #4a4a23;
+    background-color: var(--gold);
     height: 3px;
-    border-radius: 2px;
-    transition: all 0.4s ease;
+    border-radius: 3px;
+    transition: all 0.35s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
   }
   .burger.open div:nth-child(1) { transform: rotate(45deg) translate(4px, 5px);}
-  .burger.open div:nth-child(2) { opacity: 0; }
+  .burger.open div:nth-child(2) { opacity: 0; transform: translateX(-10px); }
   .burger.open div:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px);}
+
   .menu-drawer {
     position: fixed;
     top: 0;
-    right: -260px;
-    width: 260px;
+    right: -300px;
+    width: 300px;
     height: 100%;
-    background: #f0f4d1;
-    box-shadow: -3px 0 12px rgba(74,74,35,0.25);
+    background: linear-gradient(180deg, rgba(43,26,21,0.96), rgba(40,25,20,0.98));
+    box-shadow: -6px 0 30px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
-    padding: 60px 30px;
+    padding: 80px 30px;
     font-weight: 600;
-    transition: right 0.4s ease;
-    z-index: 101;
+    transition: right 0.42s cubic-bezier(.2,.9,.2,1);
+    z-index: 201;
+    border-left: 1px solid rgba(214,165,116,0.05);
   }
   .menu-drawer.open { right: 0; }
   .menu-drawer a {
     margin: 20px 0;
-    color: #475128;
+    color: var(--cream);
     text-decoration: none;
     font-size: 1.15rem;
+    opacity:0.95;
   }
-  .menu-drawer a:hover { color: #566740; }
-  .hero { position: relative; height: 100vh; overflow: hidden; }
-  .hero-slider {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  .hero-slider img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    animation: fadeSlide 26.64s infinite;
-  }
-  .hero-slider img:nth-child(1) { animation-delay: 0s; }
-  .hero-slider img:nth-child(2) { animation-delay: 6.66s; }
-  .hero-slider img:nth-child(3) { animation-delay: 13.33s; }
-  .hero-slider img:nth-child(4) { animation-delay: 20s; }
-  @keyframes fadeSlide {
-    0% { opacity: 0; }
-    5% { opacity: 1; }
-    25% { opacity: 1; }
-    30% { opacity: 0; }
-    100% { opacity: 0; }
-  }
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(46, 38, 13, 0.65);
-    z-index: 1;
-  }
-  .hero-content {
-    position: relative; z-index: 2; opacity: 0;
-    transform: translateY(30px);
-    animation: fadeSlideIn 1s forwards 0.6s;
-    text-align: center; color: #fff;
-    max-width: 600px; margin: 0 auto;
-  }
-  .hero-logo {
-    width: 160px;
-    margin-bottom: 20px;
-    border-radius: 50%;
-    padding: 10px;
-    background: rgba(255 255 255 / 0.15);
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  }
-  .hero-title {
-    font-size: 3.5rem; font-weight: 700;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    margin-bottom: 10px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  }
-  .hero-subtitle {
-    font-size: 1.4rem; font-weight: 400; max-width: 600px; margin: 0 auto;
-    font-style: italic;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    color: white;  /* Add this line */
+  .menu-drawer a:hover { color: var(--gold); transform: translateX(-6px); }
+
+  .hero { position: relative; height: 100vh; overflow: hidden; display:flex; align-items:center; padding-top:64px; }
+  .hero-slider { position: absolute; inset:0; z-index:0; filter: saturate(.85) contrast(0.9); }
+  .hero-slider img { position:absolute; width:100%; height:100%; object-fit:cover; opacity:0; animation:fadeSlide 24s infinite; }
+  .hero-slider img:nth-child(1){ animation-delay:0s }
+  .hero-slider img:nth-child(2){ animation-delay:6s }
+  .hero-slider img:nth-child(3){ animation-delay:12s }
+  .hero-slider img:nth-child(4){ animation-delay:18s }
+  @keyframes fadeSlide { 
+    0%{opacity:0; transform:scale(1.05)} 
+    6%{opacity:1; transform:scale(1)} 
+    28%{opacity:1; transform:scale(1.02)} 
+    34%{opacity:0; transform:scale(1.08)} 
+    100%{opacity:0; transform:scale(1.08)} 
   }
 
+  .hero-overlay {
+    position:absolute; inset:0; background: linear-gradient(180deg, rgba(11,7,6,0.1), rgba(11,7,6,0.5));
+    z-index:1;
+  }
+  .hero-content { position:relative; z-index:2; text-align:center; width:100%; display:flex; align-items:center; justify-content:center; }
+  .hero-inner { max-width:1100px; width:100%; padding:28px; display:flex; gap:28px; align-items:center; justify-content:center; flex-wrap:wrap; }
+
+  .hero-logo {
+    width:160px; margin-bottom:18px; border-radius:50%; padding:8px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+    box-shadow: 0 24px 70px rgba(0,0,0,0.6); border:1px solid rgba(214,165,116,0.06); animation:logoFloat 6s ease-in-out infinite;
+  }
+  @keyframes logoFloat { 0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)} }
+
+  .hero-title { font-size:3.2rem; font-weight:800; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; margin:0; text-shadow: 0 14px 40px rgba(0,0,0,0.6); }
+  .hero-subtitle { font-size:1.15rem; font-weight:400; margin-top:8px; color:rgba(239,230,210,0.95); font-style:italic; text-shadow:0 6px 18px rgba(0,0,0,0.45); }
+
   .features-section {
-    background: #f9f8f3;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
     max-width: 960px;
     margin: -120px auto 60px auto;
     border-radius: 18px;
-    box-shadow: 0 8px 20px rgba(74,74,35,0.17);
-    border: 1px solid #d3cd99;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.6);
+    border: 1px solid rgba(214,165,116,0.04);
     padding: 44px 18px 36px 18px;
     position: relative;
     z-index: 2;
+    color:var(--cream);
   }
-  .features-section h2 {
-    color: #8b5e2b; text-align: center; font-weight: 800; font-size: 2.2rem;
-    margin-bottom: 35px;
-    font-family: 'Georgia', serif;
-  }
-  .features-row {
-    display: flex; justify-content: space-around; flex-wrap: wrap; gap: 36px; text-align: center;
-  }
-  .feature-card {
-    flex: 1 1 260px;
-    background: #d8c3a5;
-    border-radius: 13px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgb(170 136 81 / 0.22);
-    min-width: 250px; max-width: 320px;
-    display: flex; flex-direction: column;
-  }
-  .feature-iconbox {
-    display: flex; align-items: center; justify-content: center;
-    background: #b69657; padding: 26px;
-  }
-  .feature-iconbox img {
-    width: 36px; height: 36px;
-    filter: brightness(0) invert(1);
-  }
-  .feature-img {
-    width: 100%; height: 170px; object-fit: cover;
-    border-bottom: 1px solid #c1ac81;
-  }
-  .feature-title {
-    font-weight: 700; color: #8b5e2b; font-size: 1.15rem; padding: 17px 12px 15px 12px;
-    margin: 0;
-  }
+  .features-section h2 { color: var(--gold); text-align:center; font-weight:800; font-size:2rem; font-family: 'Georgia', serif; margin-bottom:28px; }
 
-  section {
-    max-width: 960px;
-    margin: 0 auto 40px auto;
-    padding: 40px 35px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(74,74,35,0.15);
-    border: 1px solid #a5af6e;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  section.visible { opacity: 1; transform: translateY(0);}
-  
-  #about { 
-    background: linear-gradient(135deg, #2a1810 0%, #3e2723 50%, #1a0f0f 100%);
-    border: 1px solid rgba(139, 69, 19, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  #about::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(212,165,116,0.05)"/></svg>') repeat;
-    background-size: 30px 30px;
-    pointer-events: none;
-  }
-  
-  #about h2 {
-    color: #d4a574;
-    border-bottom: 3px solid rgba(212, 165, 116, 0.5);
-    text-align: center;
-    font-size: 2.5rem;
-    text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
-  }
-  
-  #about p {
-    color: #e0d5c7;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-  
-  #products {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 35px;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(74, 74, 35, 0.15);
-  border: 1px solid rgba(165, 175, 110, 0.4);
-  background: linear-gradient(135deg, #0a0a0a 0, #1a0f0f 50%, #2a1810 100%);
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 40px; /* Adjust value as needed */
-}
+  .features-row { display:flex; gap:26px; justify-content:space-around; flex-wrap:wrap; }
+  .feature-card { flex:1 1 260px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); border-radius:12px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.5); border:1px solid rgba(214,165,116,0.04); min-width:240px; }
+  .feature-iconbox { padding:22px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, rgba(214,165,116,0.04), rgba(0,0,0,0.02)); }
+  .feature-iconbox img { width:36px; height:36px; filter:brightness(0) invert(1); }
+  .feature-img { width:100%; height:170px; object-fit:cover; border-bottom: 1px solid rgba(214,165,116,0.04); }
+  .feature-title { padding:16px; font-weight:700; color:var(--gold); background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent); }
 
-  
-  #contact { 
-    background: linear-gradient(135deg, #1a0f0f 0%, #2a1810 50%, #3e2723 100%);
-    border: 1px solid rgba(139, 69, 19, 0.3);
-    position: relative;
-    overflow: hidden;
+  section { max-width:960px; margin: 40px auto; padding: 40px 35px; border-radius: 14px; box-shadow: 0 18px 60px rgba(0,0,0,0.5); border:1px solid rgba(214,165,116,0.03); background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.06)); opacity:0; transform: translateY(18px); transition: opacity .9s ease, transform .9s ease; }
+  section.visible { opacity:1; transform: translateY(0); }
+  #about { background: linear-gradient(135deg,#2b1714 0%, #3b241f 50%, #1a0f0f 100%); color:var(--cream); overflow:hidden; position:relative; }
+  #about::before { content:''; position:absolute; inset:0; background-image: radial-gradient(circle at 10% 10%, rgba(214,165,116,0.02), transparent 10%); pointer-events:none; mix-blend-mode:overlay; }
+  #about h2 { 
+    color:var(--gold); 
+    border-bottom: 3px solid rgba(214,165,116,0.14); 
+    text-align:center; 
+    font-size:2rem; 
+    margin-bottom:12px;
+    position:relative;
+    display:inline-block;
+    width:100%;
+    overflow:hidden;
   }
-  
-  #contact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(212,165,116,0.05)"/></svg>') repeat;
-    background-size: 30px 30px;
-    pointer-events: none;
+  #about h2::before {
+    content:'The Soul of Kape Kapi';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shimmer 3s ease-in-out infinite;
   }
-  
-  #contact h2 {
-    color: #d4a574;
-    border-bottom: 3px solid rgba(212, 165, 116, 0.5);
-    text-align: center;
-    font-size: 2.5rem;
-    text-shadow: 0 2px 10px rgba(212, 165, 116, 0.3);
+  @keyframes shimmer {
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(100%)}
   }
-  
-  #contact p {
-    color: #e0d5c7;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    position: relative;
-    z-index: 1;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  }
-  
-  #contact strong {
-    color: #d4a574;
-    font-weight: 700;
-  }
-  
-  h2 {
-    font-family: 'Georgia', serif;
-    color: #506426;
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 28px;
-    border-bottom: 3px solid #a9b487;
-    padding-bottom: 6px;
-  }
-  h3 {
-    font-weight: 700;
-    color: #6a6e31;
-    margin-top: 24px;
-    margin-bottom: 12px;
-  }
-  p {
-    font-size: 1.1rem;
-    color: #555e2e;
-    line-height: 1.65;
-    margin-bottom: 18px;
-  }
-  ul {
-    list-style-type: square;
-    margin-left: 24px;
-    margin-bottom: 30px;
-    color: #565f2f;
-  }
-  ul li { margin-bottom: 10px;}
-  footer {
-    text-align: center;
-    padding: 30px 15px;
-    font-style: italic;
-    font-weight: 600;
-    color: #5c652c;
-    background: #c0c76a;
-    box-shadow: inset 0 1px 6px rgba(116,109,69,0.3);
-  }
-  
-  /* Products Section Styles */
-  #products h2 {
-    text-align: center;
-    font-size: 3.5em;
-    margin-bottom: 60px;
-    background: linear-gradient(45deg, #d4a574, #fff, #d4a574);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border: none;
-    animation: glow 3s ease-in-out infinite;
-  }
+  #about p { color: rgba(239,230,210,0.95); font-size:1.05rem; line-height:1.7; }
+  #products { background: linear-gradient(135deg, #171212 0, #201512 50%, #2b1714 100%); color:var(--cream); overflow:hidden; }
+  #contact { background: linear-gradient(135deg, #1a0f0f 0%, #2b1714 50%, #3b241f 100%); color:var(--cream); }
 
-  @keyframes glow {
-    0%, 100% { filter: brightness(1); }
-    50% { filter: brightness(1.3); }
+  #products h2 { 
+    text-align:center; 
+    font-size:2.6rem; 
+    color:var(--gold); 
+    margin-bottom:36px; 
+    letter-spacing:0.06em;
+    position:relative;
+    display:inline-block;
+    width:100%;
   }
+  #products h2::after {
+    content:'';
+    position:absolute;
+    bottom:-8px;
+    left:50%;
+    transform:translateX(-50%) scaleX(0);
+    width:200px;
+    height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation:expandLine 2s ease-out forwards;
+    animation-delay:0.3s;
+  }
+  @keyframes expandLine {
+    to{transform:translateX(-50%) scaleX(1)}
+  }
+  #products h2 span {
+    display:inline-block;
+    opacity:0;
+    transform:translateY(20px) rotateX(90deg);
+    animation:letterDrop 0.6s cubic-bezier(.2,.9,.2,1) forwards;
+  }
+  #products h2 span:nth-child(1){animation-delay:0.05s}
+  #products h2 span:nth-child(2){animation-delay:0.1s}
+  #products h2 span:nth-child(3){animation-delay:0.15s}
+  #products h2 span:nth-child(4){animation-delay:0.2s}
+  #products h2 span:nth-child(5){animation-delay:0.25s}
+  #products h2 span:nth-child(6){animation-delay:0.3s}
+  #products h2 span:nth-child(7){animation-delay:0.35s}
+  #products h2 span:nth-child(8){animation-delay:0.4s}
+  #products h2 span:nth-child(9){animation-delay:0.45s}
+  #products h2 span:nth-child(10){animation-delay:0.5s}
+  #products h2 span:nth-child(11){animation-delay:0.55s}
+  #products h2 span:nth-child(12){animation-delay:0.6s}
+  @keyframes letterDrop {
+    to{opacity:1; transform:translateY(0) rotateX(0)}
+  }
+  .products-layout { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+  .product-card { background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); border-radius:12px; padding:22px; box-shadow:0 18px 54px rgba(0,0,0,0.5); border:1px solid rgba(214,165,116,0.04); transition: transform 0.42s cubic-bezier(.2,.9,.2,1); }
+  .product-card:hover{ transform: translateY(-10px); box-shadow:0 40px 110px rgba(214,165,116,0.12); }
+  .product-card .card-header{ display:flex; align-items:center; gap:12px; color:var(--gold); font-weight:800; font-size:1.1rem; margin-bottom:12px; }
+  .bean-icon{ width:36px;height:36px;border-radius:50%; background:linear-gradient(135deg,#3e2723,#6d4c41); box-shadow: inset 0 3px 8px rgba(0,0,0,0.4); }
 
-  .products-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
-  }
+  footer{ text-align:center; padding:32px 18px; color:rgba(255,255,255,0.8); background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.06)); border-top:1px solid rgba(214,165,116,0.02); margin-top:28px; }
 
-  .products-column {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
-
-  .product-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 165, 116, 0.2);
-    border-radius: 20px;
-    padding: 30px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .product-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(212, 165, 116, 0.1), transparent);
-    transform: rotate(45deg);
-    transition: all 0.6s;
-  }
-
-  .product-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(212, 165, 116, 0.6);
-    box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
-  }
-
-  .product-card:hover::before {
-    left: 100%;
-  }
-
-  .card-header {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: #d4a574;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .bean-icon {
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, #3e2723 0%, #5d4037 30%, #6d4c41 50%, #5d4037 70%, #3e2723 100%);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: relative;
-    animation: pulse 2s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(93, 64, 55, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-  }
-
-  .bean-icon::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 2px;
-    height: 70%;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 2px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-
-  .product-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .product-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(212, 165, 116, 0.1);
-    font-size: 1.05em;
-    color: #e0e0e0;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    margin: 0;
-  }
-
-  .product-list li:last-child {
-    border-bottom: none;
-  }
-
-  .product-list li::before {
-    content: '◆';
-    color: #d4a574;
-    margin-right: 12px;
-    font-size: 0.7em;
-    transition: all 0.3s;
-  }
-
-  .product-list li:hover {
-    color: #fff;
-    padding-left: 10px;
-  }
-
-  .product-list li:hover::before {
-    transform: rotate(45deg);
-    color: #fff;
-  }
-
-  .specialty-section {
-    grid-column: 1 / -1;
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
-    border: 2px solid rgba(212, 165, 116, 0.3);
-  }
-
-  .specialty-section .card-header {
-    font-size: 1.8em;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-
-  .specialty-section .product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
-
-  .specialty-section .product-list li {
-    background: rgba(212, 165, 116, 0.1);
-    padding: 18px;
-    border-radius: 12px;
-    border: 1px solid rgba(212, 165, 116, 0.2);
-    justify-content: center;
-    font-size: 1.15em;
-    font-weight: 500;
-  }
-
-  @keyframes fadeSlideIn {
-    to { opacity: 1; transform: translateY(0);}
-  }
-  @media (max-width: 1050px) {
-    .features-row { flex-direction: column; align-items: center;}
-    .feature-card { min-width: 230px; max-width: 480px;}
-    .products-layout {
-      grid-template-columns: 1fr;
-    }
-  }
-  @media (max-width: 900px) {
-    nav { justify-content: flex-start; padding: 15px 25px;}
-    nav a { display: none;}
-    .burger { display: flex; }
-    section { margin: 10px 15px 50px 15px; padding: 30px 20px; }
-    .features-section { margin: -80px 10px 50px 10px; }
-    #products { padding: 40px 20px; }
-    #products h2 { font-size: 2.5em; }
-    #about h2, #contact h2 { font-size: 2rem; }
-    .specialty-section .product-list {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width:1050px){
+    .products-layout{ grid-template-columns:1fr; }
+    .features-row{ flex-direction:column; align-items:center; }
+    nav a{ display:none }
+    .burger{ display:flex }
+    .hero-inner{ flex-direction:column; gap:18px; padding:18px }
+    .features-section{ margin:-80px 10px 40px 10px }
+    section{ margin:12px 12px 36px 12px; padding:28px }
   }
 </style>
 </head>
 <body>
 <nav>
-<div class="burger" id="burger">
-<div></div>
-<div></div>
-<div></div>
-</div>
-<a href="#about">About</a>
-<a href="#products">Products</a>
-<a href="#contact">Contact</a>
+  <div class="burger" id="burger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <a href="#about">About</a>
+  <a href="#products">Products</a>
+  <a href="#contact">Contact</a>
 </nav>
 <div class="menu-drawer" id="menuDrawer">
-<a href="#about" onclick="toggleMenu()">About</a>
-<a href="#products" onclick="toggleMenu()">Products</a>
-<a href="#contact" onclick="toggleMenu()">Contact</a>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#products" onclick="toggleMenu()">Products</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
 </div>
 <div class="hero">
-<div class="hero-slider">
-<img alt="Coffee Beans" src="https://img.jagranjosh.com/images/2025/09/30/article/image/largest-coffee-exporter-1759228089194.webp?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
-<img alt="Coffee Preparation" src="https://blog.saidagustoespresso.com/wp-content/uploads/2023/09/il-miglior-caffe-al-mondo.jpg?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
-<img alt="Coffee Cups" src="https://dropinblog.net/cdn-cgi/image/fit=scale-down,width=700/34248816/files/featured/42524527_2CBD0569-028A-4DA8-BDB1-78D7765BE34B.png?auto=format&amp;fit=crop&amp;w=1470&amp;q=80"/>
-<img alt="Coffee Beans" src="https://www.mochasandjavas.com/wp-content/uploads/2023/07/Understanding-the-Different-Types-of-Coffee-Beans.jpg?auto=format&amp;fit=crop&amp;w=1471&amp;q=80"/>
-</div>
-<div class="hero-overlay"></div>
-<div class="hero-content">
-<img alt="Kape Kapi Export Logo" class="hero-logo" src="https://user-gen-media-assets.s3.amazonaws.com/gemini_images/f6d09b60-023d-43f4-bfeb-812775f8443b.png" style=" margin-top: 60px;"/>
-<h1 class="hero-title">KAPE KAPI &amp; EXPORTS</h1>
-<p class="hero-subtitle">Sustainable, Ethical, and Traceable Coffee from Farm to Cup</p>
-</div>
+  <div class="hero-slider">
+    <img alt="Coffee Beans" src="https://img.jagranjosh.com/images/2025/09/30/article/image/largest-coffee-exporter-1759228089194.webp"/>
+    <img alt="Coffee Preparation" src="coffee-bean.jpg"/>
+    <img alt="Coffee Cups" src="https://dropinblog.net/cdn-cgi/image/fit=scale-down,width=700/34248816/files/featured/42524527_2CBD0569-028A-4DA8-BDB1-78D7765BE34B.png"/>
+    <img alt="Coffee Beans" src="https://coffeeza.in/cdn/shop/articles/Coffee_Beans_Blog_1512x.jpg"/>
+	<img alt="Coffee Beans2" src="https://www.caffeluxxe.com/cdn/shop/articles/Arabica_vs_robusta_beans_1200x.png?v=1682957185"/>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-inner">
+      <div style="text-align:center; max-width:520px">
+        <img alt="Kape Kapi Export Logo" class="hero-logo" src="original_logo.png" style=" margin-top: 40px;"/>
+        <h1 class="hero-title">KAPE KAPI &amp; EXPORTS</h1>
+        <p class="hero-subtitle">Sustainable, Ethical, and Traceable Coffee from Farm to Cup</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="features-section" style="margin-top: 40px;">
-<h2>Crafted from roast to aroma – delivering the world's finest coffee in every bean</h2>
-<div class="features-row">
-<div class="feature-card">
-<div class="feature-iconbox">
-<img alt="Experience Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png"/>
-</div>
-<img alt="Coffee Beans" class="feature-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
-<div class="feature-title">15 years of experience</div>
-</div>
-<div class="feature-card">
-<div class="feature-iconbox">
-<img alt="Coffee Bean Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png"/>
-</div>
-<img alt="Pure Coffee Beans" class="feature-img" src="https://www.adamsandrussell.co.uk/wp-content/uploads/2020/10/Ground-Coffee-Beans-1.jpg?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
-<div class="feature-title">Pure coffee beans</div>
-</div>
-<div class="feature-card">
-<div class="feature-iconbox">
-<img alt="Love Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055613.png"/>
-</div>
-<img alt="Nurtured Coffee" class="feature-img" src="https://i.pinimg.com/736x/29/0a/2a/290a2af0fb9ffaa3e44819bb6610bfda.jpg?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
-<div class="feature-title">Nurtured with love</div>
-</div>
-</div>
+  <h2>Crafted from roast to aroma – delivering the world's finest coffee in every bean</h2>
+  <div class="features-row">
+    <div class="feature-card">
+      <div class="feature-iconbox">
+        <img alt="Experience Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055646.png"/>
+      </div>
+      <img alt="Coffee Beans" class="feature-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=600&amp;q=80"/>
+      <div class="feature-title">15 years of experience</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-iconbox">
+        <img alt="Coffee Bean Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png"/>
+      </div>
+      <img alt="Pure Coffee Beans" class="feature-img" src="https://www.adamsandrussell.co.uk/wp-content/uploads/2020/10/Ground-Coffee-Beans-1.jpg"/>
+      <div class="feature-title">Pure coffee beans</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-iconbox">
+        <img alt="Love Icon" src="https://cdn-icons-png.flaticon.com/512/1055/1055613.png"/>
+      </div>
+      <img alt="Nurtured Coffee" class="feature-img" src="https://i.pinimg.com/736x/29/0a/2a/290a2af0fb9ffaa3e44819bb6610bfda.jpg"/>
+      <div class="feature-title">Nurtured with love</div>
+    </div>
+  </div>
 </div>
 
 <section id="about">
-<h2>About Us</h2>
-<p>Kape Kapi &amp; Exports is a new but experienced player in the coffee export market, built on 15 years of industry expertise. Operating out of Kushalnagar, Karnataka, we maintain a state-of-the-art coffee curing facility and source raw coffee directly from farmers, avoiding middlemen entirely.</p>
-<p>We support certification processes like Organic, Rainforest Alliance, 4C, and Fairtrade to ensure ethical farming practices and product integrity. With 5000 Mt of certified cleaned coffee and comprehensive traceability from farm to cup, we proudly supply leading multinational companies including Nestle, ITC, Olam, NKG, Ecom, LDC, and Allana Sons.</p>
-<p>Our reach extends across Europe, the Middle East, and Africa with year-round supply capabilities.</p>
+  <h2>The Soul of Kape Kapi</h2>
+  <p>Kape Kapi &amp; Exports is a new but experienced player in the coffee export market, built on 15 years of industry expertise. Operating out of Kushalnagar, Karnataka, we maintain a state-of-the-art coffee curing facility and source raw coffee directly from farmers, avoiding middlemen entirely.</p>
+  <p>We support certification processes like Organic, Rainforest Alliance, 4C, and Fairtrade to ensure ethical farming practices and product integrity. With 5000 Mt of certified cleaned coffee and comprehensive traceability from farm to cup, we proudly supply leading multinational companies including Nestle, ITC, Olam, NKG, Ecom, LDC, and Allana Sons.</p>
+  <p>Our reach extends across Europe, the Middle East, and Africa with year-round supply capabilities.</p>
 </section>
 
 <section id="products">
-  <h2>OUR PRODUCTS</h2>
-  
+  <h2></span>Expertly Curated Range</span></h2>
   <div class="products-layout">
     <div class="products-column">
       <div class="product-card">
@@ -662,13 +400,48 @@
   </div>
 </section>
 
-<section id="contact">
-<h2>Contact Us</h2>
-<p>For inquiries, orders, and partnership opportunities, please reach out to us at:</p>
-<p><strong>Email:</strong> info@kapekapiexports.com</p>
-<p><strong>Phone:</strong> +91 12345 67890</p>
-<p><strong>Address:</strong> Kushalnagar, Karnataka, India</p>
+<section id="contact" class="contact-section">
+  <h2>
+    <img src="contact-icon.jpg" alt="Contact Icon" class="icon animated-bounce" style="height: 32px; vertical-align: middle; margin-right: 8px;">
+    We'd Love to Hear From You
+  </h2>
+  <p>For inquiries, orders, and partnership opportunities, please reach out to us at:</p>
+  <div class="contact-methods">
+    <p>
+      <img src="email-icon.jpg" alt="Email Icon" class="icon animated-fade-in" style="height: 24px;">
+      <strong>Email:</strong>
+      <a href="mailto:info@kapekapiexports.com" onclick="playChime();">info@kapekapiexports.com</a>
+    </p>
+    <p>
+      <img src="phone-icon.png" alt="Phone Icon" class="icon animated-fade-in" style="height: 24px;">
+      <strong>Phone:</strong>
+      <a href="tel:+911234567890" onclick="playPop();">+91 12345 67890</a>
+    </p>
+    <p>
+      <img src="location-icon.jpg" alt="Location Icon" class="icon animated-fade-in" style="height: 24px;">
+      <strong>Address:</strong> Kushalnagar, Karnataka, India
+    </p>
+  </div>
 </section>
+
+
+
+<!-- Add more logos to feature cards -->
+<div class="feature-card">
+  <img src="coffee-bean.jpg" class="feature-img"/>
+</div>
+
+
+<!-- CSS Animation Example -->
+<style>
+.animated-bounce {
+  animation: bounce 1s infinite alternate;
+}
+@keyframes bounce {
+  to { transform: translateY(-12px) scale(1.08); }
+}
+</style>
+
 
 <footer>
   © 2025 Kape Kapi &amp; Exports. Committed to sustainability, quality, and ethical coffee farming.
@@ -680,11 +453,12 @@
   function toggleMenu() {
     burger.classList.toggle('open');
     menuDrawer.classList.toggle('open');
+    playPop(0.05, 680);
   }
   burger.addEventListener('click', toggleMenu);
-  
+
   const sections = document.querySelectorAll('section');
-  const observerOptions = { threshold: 0.2 };
+  const observerOptions = { threshold: 0.18 };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -693,6 +467,84 @@
     });
   }, observerOptions);
   sections.forEach(section => { observer.observe(section); });
+
+  const hero = document.querySelector('.hero');
+  const slides = document.querySelectorAll('.hero-slider img');
+  hero.addEventListener('mousemove', (e)=>{
+    const rect = hero.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    slides.forEach((s, i)=>{
+      s.style.transform = `translate(${x*(8*(i+1))}px, ${y*(6*(i+1))}px) scale(${1 + i*0.002})`;
+    });
+  });
+  hero.addEventListener('mouseleave', ()=>{
+    slides.forEach(s=> s.style.transform='translate(0px,0px) scale(1)');
+  });
+
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
+
+  function ensureAudio(){ if (audioCtx.state === 'suspended') audioCtx.resume(); }
+
+  function playPop(volume=0.06, frequency=700){
+    try{
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type='sine'; o.frequency.value = frequency;
+      g.gain.value = 0;
+      o.connect(g); g.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(volume, now+0.008);
+      g.gain.exponentialRampToValueAtTime(0.0001, now+0.28);
+      o.start(now); o.stop(now+0.3);
+    }catch(e){}
+  }
+  function playChime(volume=0.04, freq=960){
+    try{
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type='triangle'; o.frequency.value = freq;
+      const f = audioCtx.createBiquadFilter(); f.type='lowpass'; f.frequency.value = 2400;
+      o.connect(f); f.connect(g); g.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(volume, now+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now+0.5);
+      o.start(now); o.stop(now+0.6);
+    }catch(e){}
+  }
+
+  document.querySelectorAll('.product-card, .feature-card').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>{ ensureAudio(); playPop(0.03, 620); });
+    el.addEventListener('click', ()=>{ ensureAudio(); playChime(0.035, 820); });
+  });
+
+  const about = document.getElementById('about');
+  const aboutObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){
+        ensureAudio();
+        const bufferSize = 1 * audioCtx.sampleRate;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for(let i=0;i<bufferSize;i++) data[i] = (Math.random()*2-1)*Math.pow(1 - i/bufferSize, 1.2) * 0.18;
+        const noise = audioCtx.createBufferSource(); noise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=1200;
+        const g = audioCtx.createGain(); g.gain.value=0;
+        noise.connect(filter); filter.connect(g); g.connect(audioCtx.destination);
+        const n = audioCtx.currentTime;
+        g.gain.linearRampToValueAtTime(0.12, n+0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, n+1.1);
+        noise.start(n); noise.stop(n+1.12);
+        setTimeout(()=>playPop(0.025,560), 220);
+        setTimeout(()=>playPop(0.02,720), 420);
+        aboutObserver.disconnect();
+      }
+    });
+  }, {threshold:0.35});
+  aboutObserver.observe(about);
 </script>
 </body>
 </html>
