@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kape Kapi Export - Sustainable Coffee</title>
+  <!-- Slider library, font, and base styling -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background-dark: #211914;
+      --accent-orange: #ffbc86;
+      --beige: #f7ebda;
+      --card-bg: #36302a;
+      --text-light: #fffbea;
+      --shadow: 0 8px 24px rgba(55,37,13,0.12);
+      --border-radius: 18px;
+      --overlay: rgba(33,25,20,0.85);
+    }
+	.hero-slider {
+  width: 100vw;
+  max-width: 100vw;
+  height: 70vh;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.glide__slides {
+  height: 100%;
+}
+
+.glide__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(120deg, var(--background-dark) 65%, var(--accent-orange) 100%);
+      color: var(--text-light);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 18px 40px;
+      z-index: 101;
+      gap: 36px;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+    nav .nav-links a {
+      color: var(--accent-orange);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav .nav-links a:hover {
+      color: var(--beige);
+    }
+
+    .hero-content {
+  min-height: 110vh; /* increase from 90vh to 110vh or any desired value */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 110px;
+  text-align: center;
+}
+
+.hero-slider {
+  margin: 0 auto 32px auto;
+  width: 480px;
+  height: 420px; /* increase from 210px to 280px or desired height */
+  background: var(--beige);
+  border-radius: 1.5em;
+  box-shadow: 0 8px 21px rgba(40,32,25,0.13);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-slider img {
+  width: 100%;
+  height: 420px; /* match the hero-slider height */
+  border-radius: 1.5em;
+  object-fit: cover;
+  background: var(--beige);
+  display: block;
+}
+
+    h1 {
+      font-size: 2.4rem;
+      color: var(--accent-orange);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin: 10px 0 0 0;
+    }
+    .subtitle {
+      font-size: 1.3rem;
+      color: var(--beige);
+      margin-top: 15px;
+      font-style: italic;
+      max-width: 95vw;
+      margin-bottom: 0.8em;
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 36px 18px 30px 18px;
+      background: rgba(33,25,20,0);
+    }
+    section, footer {
+      margin-top: 30px;
+      margin-bottom: 36px;
+    }
+    footer {
+      padding: 30px 0 10px 0;
+      text-align: center;
+      color: #f7ebda;
+      background: transparent;
+    }
+    @media (max-width: 650px) {
+      nav { padding: 12px 6vw; }
+      .hero-slider, .hero-slider img {
+        width: 140px;
+        height: 110px;
+      }
+      .hero-content { padding-top: 70px; }
+      h1 { font-size: 1.15rem; }
+      .subtitle { font-size: 1rem; }
+      main { padding: 12px 2vw; }
+    }
+  </style>
+</head>
+<body>
+ <nav style="
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    background: #302a25;
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  ">
+    <!-- Logo -->
+    <div style="display: flex; align-items: center;">
+     <img 
+  src="logo2.png" 
+  alt="Kape Kapi Export Logo" 
+  style="
+    height: 90px;
+  ">
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-links" style="
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      white-space: nowrap;
+    ">
+      <a href="#about" style="color: #ffcba5; font-weight: bold; font-size: 1.2em; text-decoration: none;">About</a>
+      <a href="#products" style="color: #ffcba5; font-weight: bold; font-size: 1.2em; text-decoration: none;">Products</a>
+      <a href="#contact" style="color: #ffcba5; font-weight: bold; font-size: 1.2em; text-decoration: none;">Contact</a>
+    </div>
+  </nav>
+
+
+  <section class="hero-content">
+    <div class="glide hero-slider">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li class="glide__slide">
+            <img src="https://5.imimg.com/data5/SELLER/Default/2021/8/AP/WL/GJ/5504430/roasted-coffee-beans-1000x1000.jpg?auto=format&fit=crop&w=900&q=80" alt="Coffee 1" />
+          </li>
+          <li class="glide__slide">
+            <img src="https://www.adamsandrussell.co.uk/wp-content/uploads/2020/10/Ground-Coffee-Beans-1.jpg?auto=format&fit=crop&w=900&q=80" alt="Coffee 2" />
+          </li>
+          <li class="glide__slide">
+            <img src="https://i.pinimg.com/736x/29/0a/2a/290a2af0fb9ffaa3e44819bb6610bfda.jpg?auto=format&fit=crop&w=900&q=80" alt="Coffee 3" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <h1>Homemade Coffee with Amazing Vibes</h1>
+    <p class="subtitle">Sustainable, Ethical, and Traceable Coffee from Farm to Cup</p>
+  </section>
+  <main>
+    <section id="about">
+      <h2>About Us</h2>
+      <p>
+        Kape Kapi & Exports is a new but experienced player in the coffee export market, built on 15 years of industry expertise. Operating out of Kushalnagar, Karnataka, we maintain a state-of-the-art coffee curing facility and source raw coffee directly from farmers, avoiding middlemen entirely.<br>
+        We support certification processes like Organic, Rainforest Alliance, 4C, and Fairtrade to ensure ethical farming practices and product integrity. With 5000 Mt of certified cleaned coffee and comprehensive traceability from farm to cup, we proudly supply leading multinational companies including Nestle, ITC, Olam, NKG, Ecom, LDC, and Allana Sons.<br>
+        Our reach extends across Europe, the Middle East, and Africa with year-round supply capabilities.
+      </p>
+    </section>
+    <section id="products">
+      <h2>Our Products</h2>
+      <ul>
+        <li>Sustainable green coffee beans</li>
+        <li>Certified specialty and commercial coffee</li>
+        <li>Organic, Fairtrade, and Rainforest Alliance blends</li>
+        <li>Traceable beans from select Indian estates</li>
+      </ul>
+    </section>
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <ul>
+        <li><strong>Email:</strong> info@kapekapiexports.com</li>
+        <li><strong>Phone:</strong> +91 12345 67890</li>
+        <li><strong>Address:</strong> Kushalnagar, Karnataka, India</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Kape Kapi & Exports. All rights reserved.
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js"></script>
+  <script>
+    new Glide('.hero-slider', {
+      type: 'carousel',
+      autoplay: 3500,
+      hoverpause: true,
+      perView: 1,
+      animationDuration: 900
+    }).mount();
+  </script>
+</body>
+</html>
